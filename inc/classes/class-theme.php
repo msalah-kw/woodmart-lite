@@ -80,6 +80,7 @@ class Theme {
 			'modules/styles-storage/class-styles-storage',
 			'modules/lazy-loading',
 			'modules/mobile-optimization',
+			'modules/performance-optimizer',
 			'modules/nav-menu-images/nav-menu-images',
 			'modules/sticky-toolbar',
 			'modules/white-label',

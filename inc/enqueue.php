@@ -122,7 +122,9 @@ if ( ! function_exists( 'woodmart_enqueue_base_scripts' ) ) {
 		$version  = woodmart_get_theme_info( 'Version' );
 
 		// General.
-		wp_enqueue_script( 'wpb_composer_front_js', false, array(), $version ); // phpcs:ignore
+		if ( wp_script_is( 'wpb_composer_front_js', 'registered' ) || defined( 'WPB_VC_VERSION' ) || class_exists( 'Vc_Manager' ) ) {
+			wp_enqueue_script( 'wpb_composer_front_js' );
+		}
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
@@ -164,7 +166,10 @@ if ( ! function_exists( 'woodmart_enqueue_base_scripts' ) ) {
 			wp_enqueue_script( 'woodmart-theme', WOODMART_THEME_DIR . '/js/scripts/combine' . $minified . '.js', array(), $version, true );
 		} else {
 			woodmart_enqueue_js_script( 'woodmart-theme' );
-			woodmart_enqueue_js_script( 'woocommerce-notices' );
+
+			if ( woodmart_woocommerce_installed() ) {
+				woodmart_enqueue_js_script( 'woocommerce-notices' );
+			}
 			woodmart_enqueue_js_script( 'scrollbar' );
 
 			if ( is_admin_bar_showing() ) {
